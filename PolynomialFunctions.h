@@ -15,6 +15,8 @@
 
 #pragma once
 
+void addPolynomials();
+
 void multiplyPolynomialByGivenScalar();
 
 void calculatePolynomialForGivenNumber();

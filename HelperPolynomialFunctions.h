@@ -17,7 +17,7 @@
 
 #include <vector>
 
-void printPolynomial(char name, char variable, const std::vector<std::pair<int, int>> polynomial);
+void printPolynomial(char name, char variable, const std::vector<std::pair<int, int>> polynomial, bool includePrefix = true);
 
 void readPolynomialDegree(int& degree);
 

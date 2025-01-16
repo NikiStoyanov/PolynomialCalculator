@@ -19,9 +19,12 @@
 #include "ValidationFunctions.h"
 #include "HelperMathFunctions.h"
 
-void printPolynomial(char name, char variable, const std::vector<std::pair<int, int>> polynomial)
+void printPolynomial(char name, char variable, const std::vector<std::pair<int, int>> polynomial, bool includePrefix = true)
 {
-    std::cout << name << "(" << variable << ") = ";
+    if (includePrefix)
+    {
+        std::cout << name << "(" << variable << ") = ";
+    }
 
     bool isLeadingCoefficient = true;
 
