@@ -15,6 +15,12 @@
 
 #pragma once
 
+int max(int a, int b);
+
+int min(int a, int b);
+
+int abs(int number);
+
 int gcd(int a, int b);
 
 int lcm(int a, int b);

@@ -45,7 +45,43 @@ void addPolynomials()
             polynomialQ[i] = addFractions(polynomialP[i], polynomialQ[i]);
         }
 
-        printPolynomial('P', 'x', polynomialQ, false);
+        printPolynomial('Q', 'x', polynomialQ, false);
+    }
+}
+
+void subtractPolynomials()
+{
+    std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
+    std::cout << std::endl;
+    std::vector<std::pair<int, int>> polynomialQ = readPolymonial('Q', 'x');
+
+    int degreeOfP = polynomialP.size() - 1;
+    int degreeOfQ = polynomialQ.size() - 1;
+
+    std::cout << "P(x)-Q(x) = ";
+
+    if (degreeOfP >= degreeOfQ)
+    {
+        for (int i = 0; i <= degreeOfQ; i++)
+        {
+            polynomialP[i] = subtractFractions(polynomialP[i], polynomialQ[i]);
+        }
+
+        printPolynomial('P', 'x', polynomialP, false);
+    }
+    else
+    {
+        for (int i = 0; i <= degreeOfP; i++)
+        {
+            polynomialQ[i] = subtractFractions(polynomialQ[i], polynomialP[i]);
+        }
+
+        for (int i = 0; i <= degreeOfQ; i++)
+        {
+            polynomialQ[i] = multiplyFractions(polynomialQ[i], integerToFraction(-1));
+        }
+
+        printPolynomial('Q', 'x', polynomialQ, false);
     }
 }
 

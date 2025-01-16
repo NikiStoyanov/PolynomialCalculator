@@ -21,7 +21,17 @@
 constexpr int MAX_FRACTION_SIZE = 30;
 const char TERMINATE_SYMBOL = '\0';
 
-int abs(int number) 
+int max(int a, int b)
+{
+    return a >= b ? a : b;
+}
+
+int min(int a, int b)
+{
+    return a <= b ? a : b;
+}
+
+int abs(int number)
 {
     return number < 0 ? -number : number;
 }

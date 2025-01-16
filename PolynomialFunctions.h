@@ -17,6 +17,8 @@
 
 void addPolynomials();
 
+void subtractPolynomials();
+
 void multiplyPolynomialByGivenScalar();
 
 void calculatePolynomialForGivenNumber();

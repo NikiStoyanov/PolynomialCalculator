@@ -42,6 +42,11 @@ void printPolynomial(char name, char variable, const std::vector<std::pair<int, 
                 printFraction(polynomial[i]);
             }
 
+            if (polynomial[i].first == -1 && polynomial[i].second == 1 && i != 0)
+            {
+                std::cout << "-";
+            }
+
             if (i > 0)
             {
                 std::cout << variable;
