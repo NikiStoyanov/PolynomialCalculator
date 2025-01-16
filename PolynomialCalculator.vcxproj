@@ -127,7 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HelperMathFunctions.cpp" />
+    <ClCompile Include="HelperPolynomialFunctions.cpp" />
     <ClCompile Include="PolynomialCalculator.cpp" />
+    <ClCompile Include="PolynomialFunctions.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
+    <ClCompile Include="ValidationFunctions.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HelperMathFunctions.h" />
+    <ClInclude Include="HelperPolynomialFunctions.h" />
+    <ClInclude Include="PolynomialFunctions.h" />
+    <ClInclude Include="UserInterface.h" />
+    <ClInclude Include="ValidationFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
