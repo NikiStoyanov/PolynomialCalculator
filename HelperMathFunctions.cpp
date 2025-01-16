@@ -31,7 +31,7 @@ int min(int a, int b)
     return a <= b ? a : b;
 }
 
-int abs(int number)
+int absolute(int number)
 {
     return number < 0 ? -number : number;
 }
@@ -39,8 +39,8 @@ int abs(int number)
 // Greatest common divisor of two numbers
 int gcd(int a, int b)
 {
-    a = abs(a);
-    b = abs(b);
+    a = absolute(a);
+    b = absolute(b);
 
     if (a == 0)
     {
@@ -58,7 +58,7 @@ int lcm(int a, int b)
         return 0;
     }
 
-    return abs(a * b) / gcd(a, b);
+    return absolute(a * b) / gcd(a, b);
 }
 
 void simplifyFraction(std::pair<int, int>& fraction)

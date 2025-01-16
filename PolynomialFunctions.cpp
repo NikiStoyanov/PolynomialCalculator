@@ -85,6 +85,35 @@ void subtractPolynomials()
     }
 }
 
+void multiplyPolynomials()
+{
+    std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
+    std::cout << std::endl;
+    std::vector<std::pair<int, int>> polynomialQ = readPolymonial('Q', 'x');
+
+    int degreeOfP = polynomialP.size() - 1;
+    int degreeOfQ = polynomialQ.size() - 1;
+
+    int resultDegree = degreeOfP + degreeOfQ;
+
+    std::vector<std::pair<int, int>> result = createPolynomial(resultDegree);
+
+    std::cout << "P(x)*Q(x) = ";
+    
+    for (int i = 0; i <= degreeOfP; i++)
+    {
+        for (int j = 0; j <= degreeOfQ; j++)
+        {
+            result[i + j] = addFractions(result[i + j], multiplyFractions(polynomialP[i], polynomialQ[j]));
+        }
+    }
+
+    std::cout << "Result: ";
+
+    printPolynomial('R', 'x', result, false);
+}
+
+
 void multiplyPolynomialByGivenScalar()
 {
     std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
@@ -99,7 +128,7 @@ void multiplyPolynomialByGivenScalar()
 
     std::cout << "Result: ";
     
-    printPolynomial('P', 'x', polynomial, false);
+    printPolynomial('R', 'x', polynomial, false);
 }
 
 void calculatePolynomialForGivenNumber() 

@@ -103,3 +103,15 @@ std::vector<std::pair<int, int>> readPolymonial(char name, char variable)
 
     return polynomial;
 }
+
+std::vector<std::pair<int, int>> createPolynomial(int degree)
+{
+    std::vector<std::pair<int, int>> polynomial(degree + 1);
+
+    for (int i = 0; i <= degree; i++)
+    {
+        polynomial[i] = {0, 1};
+    }
+
+    return polynomial;
+}

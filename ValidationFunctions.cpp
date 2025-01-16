@@ -19,7 +19,6 @@
 #include "HelperPolynomialFunctions.h"
 
 const char NON_NUMERIC_OPTION_ERROR_MESSAGE[] = "You should enter a numeric value.";
-const char NOT_LISTED_OPTION_ERROR_MESSAGE[] = "This is not a listed option!";
 const char INVALID_POLYNOMIAL_DEGREE_ERROR_MESSAGE[] = "This is not a valid polynomial degree!";
 const char TERMINATE_SYMBOL = '\0';
 
