@@ -197,3 +197,15 @@ std::pair<int, int> integerToFraction(int number)
 {
     return { number, 1 };
 }
+
+std::pair<int, int> fractionPow(std::pair<int, int> fraction, int pow)
+{
+    std::pair<int, int> result = { 1, 1 };
+
+    for (unsigned i = 0; i < pow; i++)
+    {
+        result = multiplyFractions(fraction, result);
+    }
+
+    return result;
+}

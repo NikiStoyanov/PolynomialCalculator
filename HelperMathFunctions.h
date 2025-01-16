@@ -34,3 +34,5 @@ std::pair<int, int> readFraction();
 void printFraction(std::pair<int, int> fraction);
 
 std::pair<int, int> integerToFraction(int number);
+
+std::pair<int, int> fractionPow(std::pair<int, int> fraction, int pow);

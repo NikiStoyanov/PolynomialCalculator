@@ -13,9 +13,35 @@
 *
 */
 
+#include <iostream>
+
 #include "HelperPolynomialFunctions.h"
+#include "HelperMathFunctions.h"
 
 void calculatePolynomialForGivenNumber() 
 {
-    readPolymonial('P');
+    std::vector<std::pair<int, int>> polynomial = readPolymonial('P');
+
+    std::cout << "Enter rational number: ";
+    std::pair<int, int> number = readFraction();
+
+    std::pair<int, int> sum = { 0, 1 };
+
+    for (int i = polynomial.size() - 1; i >= 0; i--)
+    {
+        if (i == 0)
+        {
+            sum = addFractions(sum, polynomial[i]);
+        }
+        else
+        {
+            sum = addFractions(sum, multiplyFractions(polynomial[i], fractionPow(number, i)));
+        }
+    }
+
+    std::cout << "P(";
+    printFraction(number);
+    std::cout << ") = ";
+    printFraction(sum);
+    std::cout << std::endl;
 }

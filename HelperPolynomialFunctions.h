@@ -15,6 +15,8 @@
 
 #pragma once
 
+#include <vector>
+
 void readPolynomialDegree(int& degree);
 
-void readPolymonial(char name);
+std::vector<std::pair<int, int>> readPolymonial(char name);

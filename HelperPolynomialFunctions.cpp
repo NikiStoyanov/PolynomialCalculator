@@ -73,7 +73,7 @@ void readPolynomialDegree(int& degree)
     validatePolynomialDegree(degree);
 }
 
-void readPolymonial(char name) 
+std::vector<std::pair<int, int>> readPolymonial(char name)
 {
     std::cout << "Enter Polynomial " << name << "(x)" << std::endl;
 
@@ -92,4 +92,6 @@ void readPolymonial(char name)
     }
 
     printPolynomial(name, polynomial);
+
+    return polynomial;
 }
