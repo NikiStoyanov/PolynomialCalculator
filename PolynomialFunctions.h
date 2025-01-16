@@ -15,6 +15,6 @@
 
 #pragma once
 
-void calculatePolynomialForGivenNumber();
+void multiplyPolynomialByGivenScalar();
 
-std::pair<int, int> readCoefficientFromConsole();
+void calculatePolynomialForGivenNumber();

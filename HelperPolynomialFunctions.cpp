@@ -19,9 +19,9 @@
 #include "ValidationFunctions.h"
 #include "HelperMathFunctions.h"
 
-void printPolynomial(char name, const std::vector<std::pair<int, int>> polynomial)
+void printPolynomial(char name, char variable, const std::vector<std::pair<int, int>> polynomial)
 {
-    std::cout << name << "(x) = ";
+    std::cout << name << "(" << variable << ") = ";
 
     bool isLeadingCoefficient = true;
 
@@ -41,7 +41,7 @@ void printPolynomial(char name, const std::vector<std::pair<int, int>> polynomia
 
             if (i > 0)
             {
-                std::cout << "x";
+                std::cout << variable;
             }
 
             if (i > 1)
@@ -73,9 +73,9 @@ void readPolynomialDegree(int& degree)
     validatePolynomialDegree(degree);
 }
 
-std::vector<std::pair<int, int>> readPolymonial(char name)
+std::vector<std::pair<int, int>> readPolymonial(char name, char variable)
 {
-    std::cout << "Enter Polynomial " << name << "(x)" << std::endl;
+    std::cout << "Enter Polynomial " << name << "(" << variable << ")" << std::endl;
 
     int degree;
     readPolynomialDegree(degree);
@@ -84,14 +84,14 @@ std::vector<std::pair<int, int>> readPolymonial(char name)
 
     for (int i = degree; i << degree >= 0; i--)
     {
-        std::cout << "Enter coefficient before x^" << i << ": ";
+        std::cout << "Enter coefficient before " << variable <<"^" << i << ": ";
         
         std::pair<int, int> coefficient = readFraction();
 
         polynomial[i] = coefficient;
     }
 
-    printPolynomial(name, polynomial);
+    printPolynomial(name, variable, polynomial);
 
     return polynomial;
 }

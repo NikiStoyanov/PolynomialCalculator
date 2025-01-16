@@ -18,9 +18,26 @@
 #include "HelperPolynomialFunctions.h"
 #include "HelperMathFunctions.h"
 
+void multiplyPolynomialByGivenScalar()
+{
+    std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
+
+    std::cout << "Enter rational number: ";
+    std::pair<int, int> scalar = readFraction();
+
+    for (int i = polynomial.size() - 1; i >= 0; i--)
+    {
+        polynomial[i] = multiplyFractions(polynomial[i], scalar);
+    }
+
+    std::cout << "Result: ";
+    
+    printPolynomial('P', 'x', polynomial);
+}
+
 void calculatePolynomialForGivenNumber() 
 {
-    std::vector<std::pair<int, int>> polynomial = readPolymonial('P');
+    std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
 
     std::cout << "Enter rational number: ";
     std::pair<int, int> number = readFraction();
