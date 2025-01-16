@@ -17,8 +17,6 @@
 
 bool isDigit(char symbol);
 
-void validateOptionSelection(int& option);
-
 void validatePolynomialDegree(int& degree);
 
 void removeWhitespaces(char* str);

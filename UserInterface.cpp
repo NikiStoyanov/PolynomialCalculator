@@ -15,32 +15,34 @@
 
 #include <iostream>
 
-#include "ValidationFunctions.h"
 #include "PolynomialFunctions.h"
 
 void displayMenu()
 {
     std::cout << "Choose one of the following functionalities:" << std::endl;
-    std::cout << "1) Add polynomials" << std::endl;
-    std::cout << "2) Subtract polynomials" << std::endl;
-    std::cout << "3) Multiply polynomials" << std::endl;
-    std::cout << "4) Divide polynomials" << std::endl;
-    std::cout << "5) Multiply polynomials by scalar" << std::endl;
-    std::cout << "6) Find value of polynomial at a given number" << std::endl;
-    std::cout << "7) Find GCD of two polynomials" << std::endl;
-    std::cout << "8) Display Vieta's formulas for a given polynomial" << std::endl;
-    std::cout << "9) Represent a polynomial in powers of (x+a)" << std::endl;
-    std::cout << "10) Factor polynomial and find its rational roots" << std::endl;
-    std::cout << "11) Quit program" << std::endl;
+    std::cout << "a) Add polynomials" << std::endl;
+    std::cout << "b) Subtract polynomials" << std::endl;
+    std::cout << "c) Multiply polynomials" << std::endl;
+    std::cout << "d) Divide polynomials" << std::endl;
+    std::cout << "e) Multiply polynomials by scalar" << std::endl;
+    std::cout << "f) Find value of polynomial at a given number" << std::endl;
+    std::cout << "g) Find GCD of two polynomials" << std::endl;
+    std::cout << "h) Display Vieta's formulas for a given polynomial" << std::endl;
+    std::cout << "i) Represent a polynomial in powers of (x+a)" << std::endl;
+    std::cout << "j) Factor polynomial and find its rational roots" << std::endl;
+    std::cout << "k) Quit program" << std::endl;
 }
 
-void readOption(int& option)
+void readOption(char& option)
 {
     std::cout << "Enter your option here: ";
 
     std::cin >> option;
 
-    validateOptionSelection(option);
+    if (option < 'a' || option > 'k')
+    {
+        std::cout << "Not a valid option! ";
+    }
 }
 
 void listenForOptionSelection()
@@ -49,22 +51,22 @@ void listenForOptionSelection()
     {
         std::cout << std::endl;
 
-        int option;
+        char option;
         readOption(option);
 
         switch (option)
         {
-        case 1: addPolynomials(); break;
-        case 2: subtractPolynomials(); break;
-        case 3: break;
-        case 4: break;
-        case 5: multiplyPolynomialByGivenScalar(); break;
-        case 6: calculatePolynomialForGivenNumber(); break;
-        case 7: break;
-        case 8: break;
-        case 9: break;
-        case 10: break;
-        case 11: 
+        case 'a': addPolynomials(); break;
+        case 'b': subtractPolynomials(); break;
+        case 'c': break;
+        case 'd': break;
+        case 'e': multiplyPolynomialByGivenScalar(); break;
+        case 'f': calculatePolynomialForGivenNumber(); break;
+        case 'g': break;
+        case 'h': break;
+        case 'i': break;
+        case 'j': break;
+        case 'k':
             std::cout << "Quitting..." << std::endl;
             return;
             break;

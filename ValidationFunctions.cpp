@@ -28,26 +28,6 @@ bool isDigit(char symbol)
 	return symbol >= '0' && symbol <= '9';
 }
 
-void validateOptionSelection(int& option)
-{
-	if (std::cin.fail())
-	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-		std::cout << NON_NUMERIC_OPTION_ERROR_MESSAGE << std::endl;
-
-		readOption(option);
-	}
-
-	if (option < 1 || option > 11)
-	{
-		std::cout << NOT_LISTED_OPTION_ERROR_MESSAGE << std::endl;
-
-		readOption(option);
-	}
-}
-
 void validatePolynomialDegree(int& degree)
 {
 	if (std::cin.fail())
