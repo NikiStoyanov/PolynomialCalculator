@@ -21,6 +21,8 @@ void printPolynomial(char name, char variable, const std::vector<std::pair<int, 
 
 void readPolynomialDegree(char* degree);
 
+int getPolynomialDegree(std::vector<std::pair<int, int>> polynomial);
+
 std::vector<std::pair<int, int>> readPolymonial(char name, char variable);
 
 std::vector<std::pair<int, int>> createPolynomial(int degree);

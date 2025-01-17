@@ -16,6 +16,8 @@
 #pragma once
 
 const char INVALID_OPTION_ERROR_MESSAGE[] = "This is not a valid option!";
+const char DIVIDE_BY_HIGHER_DEGREE_ERROR_MESSAGE[] = "You cannot divide by a polynomial of a higher degree!";
+const char DIVIDE_BY_ZERO_ERROR_MESSAGE[] = "You cannot divide by zero!";
 const char ZERO_DENOMINATOR_ERROR_MESSAGE[] = "The denominator could not be 0! Re-enter the coefficient:";
 const char INVALID_CHARACTER_ERROR_MESSAGE[] = "Invalid character detected. Re-enter the fraction: ";
 const char INVALID_POLYNOMIAL_DEGREE_ERROR_MESSAGE[] = "This is not a valid polynomial degree!";

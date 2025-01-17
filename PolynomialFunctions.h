@@ -15,11 +15,21 @@
 
 #pragma once
 
+#include <vector>
+
+std::vector<std::pair<int, int>> addPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ);
+
 void addPolynomials();
+
+std::vector<std::pair<int, int>> subtractPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ);
 
 void subtractPolynomials();
 
 void multiplyPolynomials();
+
+std::vector<std::pair<int, int>> multiplyPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ);
+
+void dividePolynomials();
 
 void multiplyPolynomialByGivenScalar();
 

@@ -59,7 +59,7 @@ void listenForOptionSelection()
             case 'a': addPolynomials(); break;
             case 'b': subtractPolynomials(); break;
             case 'c': multiplyPolynomials(); break;
-            case 'd': break;
+            case 'd': dividePolynomials(); break;
             case 'e': multiplyPolynomialByGivenScalar(); break;
             case 'f': calculatePolynomialForGivenNumber(); break;
             case 'g': break;

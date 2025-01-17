@@ -17,17 +17,12 @@
 
 #include "HelperPolynomialFunctions.h"
 #include "HelperMathFunctions.h"
+#include "Constants.h"
 
-void addPolynomials()
+std::vector<std::pair<int, int>> addPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
 {
-    std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
-    std::cout << std::endl;
-    std::vector<std::pair<int, int>> polynomialQ = readPolymonial('Q', 'x');
-
     int degreeOfP = polynomialP.size() - 1;
     int degreeOfQ = polynomialQ.size() - 1;
-
-    std::cout << "P(x)+Q(x) = ";
 
     if (degreeOfP >= degreeOfQ)
     {
@@ -36,7 +31,7 @@ void addPolynomials()
             polynomialP[i] = addFractions(polynomialP[i], polynomialQ[i]);
         }
 
-        printPolynomial('P', 'x', polynomialP, false);
+        return polynomialP;
     }
     else
     {
@@ -45,20 +40,27 @@ void addPolynomials()
             polynomialQ[i] = addFractions(polynomialP[i], polynomialQ[i]);
         }
 
-        printPolynomial('Q', 'x', polynomialQ, false);
+        return polynomialQ;
     }
 }
 
-void subtractPolynomials()
+void addPolynomials()
 {
     std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
     std::cout << std::endl;
     std::vector<std::pair<int, int>> polynomialQ = readPolymonial('Q', 'x');
 
+    std::vector<std::pair<int, int>> result = addPolynomials(polynomialP, polynomialQ);
+
+    std::cout << "P(x)+Q(x) = ";
+
+    printPolynomial('R', 'x', result, false);
+}
+
+std::vector<std::pair<int, int>> subtractPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
+{
     int degreeOfP = polynomialP.size() - 1;
     int degreeOfQ = polynomialQ.size() - 1;
-
-    std::cout << "P(x)-Q(x) = ";
 
     if (degreeOfP >= degreeOfQ)
     {
@@ -67,7 +69,7 @@ void subtractPolynomials()
             polynomialP[i] = subtractFractions(polynomialP[i], polynomialQ[i]);
         }
 
-        printPolynomial('P', 'x', polynomialP, false);
+        return polynomialP;
     }
     else
     {
@@ -81,8 +83,40 @@ void subtractPolynomials()
             polynomialQ[i] = multiplyFractions(polynomialQ[i], integerToFraction(-1));
         }
 
-        printPolynomial('Q', 'x', polynomialQ, false);
+        return polynomialQ;
     }
+}
+
+void subtractPolynomials()
+{
+    std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
+    std::cout << std::endl;
+    std::vector<std::pair<int, int>> polynomialQ = readPolymonial('Q', 'x');
+
+    std::vector<std::pair<int, int>> result = subtractPolynomials(polynomialP, polynomialQ);
+
+    std::cout << "P(x)-Q(x) = ";
+
+    printPolynomial('R', 'x', result, false);
+}
+
+std::vector<std::pair<int, int>> multiplyPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
+{
+    int degreeOfP = polynomialP.size() - 1;
+    int degreeOfQ = polynomialQ.size() - 1;
+
+    int resultDegree = degreeOfP + degreeOfQ;
+
+    std::vector<std::pair<int, int>> result = createPolynomial(resultDegree);
+
+    for (int i = 0; i <= degreeOfP; i++)
+    {
+        for (int j = 0; j <= degreeOfQ; j++)
+        {
+            result[i + j] = addFractions(result[i + j], multiplyFractions(polynomialP[i], polynomialQ[j]));
+        }
+    }
+    return result;
 }
 
 void multiplyPolynomials()
@@ -91,28 +125,62 @@ void multiplyPolynomials()
     std::cout << std::endl;
     std::vector<std::pair<int, int>> polynomialQ = readPolymonial('Q', 'x');
 
-    int degreeOfP = polynomialP.size() - 1;
-    int degreeOfQ = polynomialQ.size() - 1;
-
-    int resultDegree = degreeOfP + degreeOfQ;
-
-    std::vector<std::pair<int, int>> result = createPolynomial(resultDegree);
+    std::vector<std::pair<int, int>> result = multiplyPolynomials(polynomialP, polynomialQ);
 
     std::cout << "P(x)*Q(x) = ";
     
-    for (int i = 0; i <= degreeOfP; i++)
-    {
-        for (int j = 0; j <= degreeOfQ; j++)
-        {
-            result[i + j] = addFractions(result[i + j], multiplyFractions(polynomialP[i], polynomialQ[j]));
-        }
-    }
-
-    std::cout << "Result: ";
-
     printPolynomial('R', 'x', result, false);
 }
 
+void dividePolynomials()
+{
+    std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
+    std::cout << std::endl;
+    std::vector<std::pair<int, int>> polynomialB = readPolymonial('B', 'x');
+
+    int degreeOfP = polynomialP.size() - 1;
+    int degreeOfB = polynomialB.size() - 1;
+
+    if (degreeOfB == 0 && (polynomialB[degreeOfB] == integerToFraction(0)))
+    {
+        std::cout << DIVIDE_BY_ZERO_ERROR_MESSAGE;
+        return;
+    }
+    if (degreeOfB > degreeOfP)
+    {
+        std::cout << DIVIDE_BY_HIGHER_DEGREE_ERROR_MESSAGE;
+        return;
+    }
+
+    int quotientDegree = degreeOfP - degreeOfB;
+
+    std::vector<std::pair<int, int>> quotient = createPolynomial(quotientDegree);
+
+    while (degreeOfP >= degreeOfB)
+    {
+        int currentQuotientDegree = degreeOfP - degreeOfB;
+
+        std::vector<std::pair<int, int>> currentQuotient = createPolynomial(currentQuotientDegree);
+
+        currentQuotient[currentQuotientDegree] = divideFractions(polynomialP[degreeOfP], polynomialB[degreeOfB]);
+
+        quotient = addPolynomials(quotient, currentQuotient);
+
+        std::vector<std::pair<int, int>> remainder = createPolynomial(degreeOfP);
+
+        remainder = subtractPolynomials(polynomialP, multiplyPolynomials(currentQuotient, polynomialB));
+
+        polynomialP = remainder;
+        degreeOfP = getPolynomialDegree(polynomialP);
+    }
+
+    std::cout << std::endl;
+    std::cout << "Quotient ";
+    printPolynomial('Q', 'x', quotient, true);
+
+    std::cout << "Remainder ";
+    printPolynomial('R', 'x', polynomialP, true);
+}
 
 void multiplyPolynomialByGivenScalar()
 {
