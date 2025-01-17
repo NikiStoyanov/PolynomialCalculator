@@ -17,6 +17,6 @@
 
 void displayMenu();
 
-void readOption(char& option);
+void readOption(char* option);
 
 void listenForOptionSelection();

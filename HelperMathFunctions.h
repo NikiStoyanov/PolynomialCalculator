@@ -21,6 +21,8 @@ int min(int a, int b);
 
 int absolute(int number);
 
+int customAtoi(char* str);
+
 int gcd(int a, int b);
 
 int lcm(int a, int b);

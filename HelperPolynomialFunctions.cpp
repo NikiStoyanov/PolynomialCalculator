@@ -18,6 +18,7 @@
 
 #include "ValidationFunctions.h"
 #include "HelperMathFunctions.h"
+#include "Constants.h"
 
 void printPolynomial(char name, char variable, const std::vector<std::pair<int, int>> polynomial, bool includePrefix = true)
 {
@@ -72,7 +73,7 @@ void printPolynomial(char name, char variable, const std::vector<std::pair<int, 
     std::cout << std::endl;
 }
 
-void readPolynomialDegree(int& degree) 
+void readPolynomialDegree(char* degree) 
 {
     std::cout << "Enter degree of your polynomial: ";
 
@@ -85,8 +86,10 @@ std::vector<std::pair<int, int>> readPolymonial(char name, char variable)
 {
     std::cout << "Enter Polynomial " << name << "(" << variable << ")" << std::endl;
 
-    int degree;
-    readPolynomialDegree(degree);
+    char degreeInput[MAX_DEGREE_LENGTH];
+    readPolynomialDegree(degreeInput);
+
+    int degree = customAtoi(degreeInput);
 
     std::vector<std::pair<int, int>> polynomial(degree + 1);
 

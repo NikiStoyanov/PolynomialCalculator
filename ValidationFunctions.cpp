@@ -17,33 +17,51 @@
 
 #include "UserInterface.h"
 #include "HelperPolynomialFunctions.h"
-
-const char NON_NUMERIC_OPTION_ERROR_MESSAGE[] = "You should enter a numeric value.";
-const char INVALID_POLYNOMIAL_DEGREE_ERROR_MESSAGE[] = "This is not a valid polynomial degree!";
-const char TERMINATE_SYMBOL = '\0';
+#include "Constants.h"
 
 bool isDigit(char symbol)
 {
 	return symbol >= '0' && symbol <= '9';
 }
 
-void validatePolynomialDegree(int& degree)
+void validateOptionSelection(char* option)
 {
-	if (std::cin.fail())
+	if (option[1] != TERMINATE_SYMBOL || option[0] == TERMINATE_SYMBOL)
 	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << INVALID_OPTION_ERROR_MESSAGE << std::endl;
 
-		std::cout << NON_NUMERIC_OPTION_ERROR_MESSAGE << std::endl;
-
-		readPolynomialDegree(degree);
+		readOption(option);
 	}
 
-	if (degree < 0)
+	if (option[0] < 'a' || option[0] > 'k')
+	{
+		std::cout << INVALID_OPTION_ERROR_MESSAGE << std::endl;
+
+		readOption(option);
+	}
+}
+
+void validatePolynomialDegree(char* degree)
+{
+	int index = 0;
+
+	if (degree[0] == '0' && degree[1] != TERMINATE_SYMBOL)
 	{
 		std::cout << INVALID_POLYNOMIAL_DEGREE_ERROR_MESSAGE << std::endl;
 
 		readPolynomialDegree(degree);
+	}
+
+	while (degree[index] != TERMINATE_SYMBOL)
+	{
+		if (!isDigit(degree[index]))
+		{
+			std::cout << INVALID_POLYNOMIAL_DEGREE_ERROR_MESSAGE << std::endl;
+
+			readPolynomialDegree(degree);
+		}
+
+		index++;
 	}
 }
 
@@ -60,5 +78,5 @@ void removeWhitespaces(char* str)
 		readIndex++;
 	}
 
-	str[writeIndex] = TERMINATE_SYMBOL; // Null-terminate the cleaned string
+	str[writeIndex] = TERMINATE_SYMBOL;
 }

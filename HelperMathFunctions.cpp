@@ -17,9 +17,7 @@
 
 #include "HelperMathFunctions.h"
 #include "ValidationFunctions.h"
-
-constexpr int MAX_FRACTION_SIZE = 30;
-const char TERMINATE_SYMBOL = '\0';
+#include "Constants.h"
 
 int max(int a, int b)
 {
@@ -36,7 +34,36 @@ int absolute(int number)
     return number < 0 ? -number : number;
 }
 
-// Greatest common divisor of two numbers
+int customAtoi(char* str) 
+{
+    int sign = 1;
+    int result = 0;
+
+    removeWhitespaces(str);
+
+    if (str[0] == '-')
+    {
+        sign = -1;
+    }
+
+    int index = 0;
+
+    if (str[0] == '+' || str[0] == '-')
+    {
+        index++;
+    }
+
+    while (str[index] != TERMINATE_SYMBOL) {
+        int digit = str[index] - '0';
+
+        result = result * 10 + digit;
+
+        index++;
+    }
+
+    return result * sign;
+}
+
 int gcd(int a, int b)
 {
     a = absolute(a);
@@ -50,7 +77,6 @@ int gcd(int a, int b)
     return gcd(b % a, a);
 }
 
-// Least common multiple of two numbers
 int lcm(int a, int b)
 {
     if (a == 0 || b == 0)
@@ -151,7 +177,7 @@ std::pair<int, int> readFraction()
     while (fraction[index] != TERMINATE_SYMBOL) {
         if (!isDigit(fraction[index]) && fraction[index] != '-' && fraction[index] != '/')
         {
-            std::cout << "Invalid character detected. Re-enter the fraction: ";
+            std::cout << INVALID_CHARACTER_ERROR_MESSAGE;
 
             return readFraction();
         }
@@ -175,18 +201,24 @@ std::pair<int, int> readFraction()
     numerator[numIndex] = TERMINATE_SYMBOL;
     denominator[denIndex] = TERMINATE_SYMBOL;
 
-    int num = std::atoi(numerator);
-    int den = (denIndex > 0) ? std::atoi(denominator) : 1;
+    int num = customAtoi(numerator);
+    int den = (denIndex > 0) ? customAtoi(denominator) : 1;
 
     if (den == 0)
     {
-        std::cout << "Invalid input! Re-enter the coefficient: ";
+        std::cout << ZERO_DENOMINATOR_ERROR_MESSAGE;
         return readFraction();
     }
 
     std::pair<int, int> result = { num, den };
 
     simplifyFraction(result);
+
+    if (result.second < 0)
+    {
+        result.first = -result.first;
+        result.second = -result.second;
+    }
 
     return result;
 }

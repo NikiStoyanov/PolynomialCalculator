@@ -16,6 +16,7 @@
 #include <iostream>
 
 #include "UserInterface.h"
+#include "HelperMathFunctions.h"
 
 int main()
 {

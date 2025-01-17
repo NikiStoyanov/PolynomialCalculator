@@ -16,6 +16,8 @@
 #include <iostream>
 
 #include "PolynomialFunctions.h"
+#include "ValidationFunctions.h"
+#include "Constants.h"
 
 void displayMenu()
 {
@@ -33,16 +35,13 @@ void displayMenu()
     std::cout << "k) Quit program" << std::endl;
 }
 
-void readOption(char& option)
+void readOption(char* option)
 {
     std::cout << "Enter your option here: ";
 
     std::cin >> option;
 
-    if (option < 'a' || option > 'k')
-    {
-        std::cout << "Not a valid option! ";
-    }
+    validateOptionSelection(option);
 }
 
 void listenForOptionSelection()
@@ -51,25 +50,26 @@ void listenForOptionSelection()
     {
         std::cout << std::endl;
 
-        char option;
-        readOption(option);
+        char optionInput[OPTION_MAX_LENGTH];
+        readOption(optionInput);
 
+        char option = optionInput[0];
         switch (option)
         {
-        case 'a': addPolynomials(); break;
-        case 'b': subtractPolynomials(); break;
-        case 'c': multiplyPolynomials(); break;
-        case 'd': break;
-        case 'e': multiplyPolynomialByGivenScalar(); break;
-        case 'f': calculatePolynomialForGivenNumber(); break;
-        case 'g': break;
-        case 'h': break;
-        case 'i': break;
-        case 'j': break;
-        case 'k':
-            std::cout << "Quitting..." << std::endl;
-            return;
-            break;
+            case 'a': addPolynomials(); break;
+            case 'b': subtractPolynomials(); break;
+            case 'c': multiplyPolynomials(); break;
+            case 'd': break;
+            case 'e': multiplyPolynomialByGivenScalar(); break;
+            case 'f': calculatePolynomialForGivenNumber(); break;
+            case 'g': break;
+            case 'h': break;
+            case 'i': break;
+            case 'j': break;
+            case 'k':
+                std::cout << "Quitting..." << std::endl;
+                return;
+                break;
         }
     } 
     while (true);

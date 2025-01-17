@@ -135,6 +135,7 @@
     <ClCompile Include="ValidationFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="HelperMathFunctions.h" />
     <ClInclude Include="HelperPolynomialFunctions.h" />
     <ClInclude Include="PolynomialFunctions.h" />
