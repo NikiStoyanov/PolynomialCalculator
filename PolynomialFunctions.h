@@ -46,10 +46,12 @@ void calculatePolynomialForGivenNumber();
 
 void findGcdOfTwoPolynomials();
 
-void generateRootCombinations(int n, int k, std::vector<int>& combination, bool& isFirstTerm, int start = 1);
-
 void displayVietasFormulasForGivenPolynomial();
 
 void representPolynomialInPowersOfXPlusA();
 
 void findRationalRoots();
+
+void readNumberN(char* number);
+
+void findNthDerivativeOfPolynomial();

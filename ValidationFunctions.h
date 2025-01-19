@@ -21,4 +21,6 @@ void validateOptionSelection(char* option);
 
 void validatePolynomialDegree(char* degree);
 
+void validateNumber(char* number);
+
 void removeWhitespaces(char* str);

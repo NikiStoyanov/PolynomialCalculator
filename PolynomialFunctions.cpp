@@ -18,6 +18,7 @@
 #include "HelperPolynomialFunctions.h"
 #include "HelperMathFunctions.h"
 #include "Constants.h"
+#include "ValidationFunctions.h"
 
 std::vector<std::pair<int, int>> addPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
 {
@@ -504,7 +505,48 @@ void findRationalRoots()
     }
 }
 
+void readNumberN(char* number)
+{
+    std::cin >> number;
+
+    validateNumber(number);
+}
+
 void findNthDerivativeOfPolynomial()
 {
-    
+    std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
+
+    std::cout << "Enter n, an integer number: ";
+    char input[MAX_NUMBER_SIZE];
+
+    readNumberN(input);
+
+    int n = customAtoi(input);
+
+    int polynomialDegree = getPolynomialDegree(polynomial);
+
+
+    if (n > polynomialDegree || polynomialDegree == 0)
+    {
+        std::cout << "P^(" << n << ")(x) = 0";
+        return;
+    }
+
+    int derivative = 0;
+
+    while (derivative < n)
+    {
+        for (int i = 0; i < polynomialDegree; i++)
+        {
+            polynomial[i] = multiplyFractions(polynomial[i + 1], integerToFraction(i + 1));
+        }
+
+        polynomial[polynomialDegree] = integerToFraction(0);
+
+        derivative++;
+    }
+
+    std::cout << "P^(" << n << ")(x) = ";
+    printPolynomial('P', 'x', polynomial, false);
+    std::cout << std::endl;
 }

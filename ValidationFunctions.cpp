@@ -18,6 +18,7 @@
 #include "UserInterface.h"
 #include "HelperPolynomialFunctions.h"
 #include "Constants.h"
+#include "PolynomialFunctions.h"
 
 bool isDigit(const char symbol)
 {
@@ -59,6 +60,23 @@ void validatePolynomialDegree(char* degree)
 			std::cout << INVALID_POLYNOMIAL_DEGREE_ERROR_MESSAGE << std::endl;
 
 			readPolynomialDegree(degree);
+		}
+
+		index++;
+	}
+}
+
+void validateNumber(char* number)
+{
+	int index = 0;
+
+	while (number[index] != TERMINATE_SYMBOL)
+	{
+		if (!isDigit(number[index]))
+		{
+			std::cout << INVALID_INTEGER_ERROR_MESSAGE;
+
+			readNumberN(number);
 		}
 
 		index++;
