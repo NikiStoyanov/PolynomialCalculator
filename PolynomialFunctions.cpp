@@ -322,3 +322,66 @@ void findGcdOfTwoPolynomials()
     std::cout << "gcd(P(x), Q(x)) = ";
     printPolynomial('G', 'x', gcd, false);
 }
+
+void generateRootCombinations(int n, int k, std::vector<int>& combination, bool& isFirstTerm, int start = 1)
+{
+    int combinationSize = combination.size();
+
+    if (combinationSize == k)
+    {
+        if (!isFirstTerm)
+        {
+            std::cout << " + ";
+        }
+        isFirstTerm = false;
+
+        for (size_t i = 0; i < combinationSize; ++i) {
+            std::cout << "x" << combination[i];
+        }
+        return;
+    }
+
+    for (int i = start; i <= n; ++i) {
+        combination.push_back(i);
+        generateRootCombinations(n, k, combination, isFirstTerm, i + 1);
+        combination.pop_back();
+    }
+}
+
+void displayVietasFormulasForGivenPolynomial()
+{
+    std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
+
+    std::cout << std::endl;
+    std::cout << "Vieta's Formulas for polynomial: ";
+    printPolynomial('P', 'x', polynomial, true);
+
+    int polynomialDegree = getPolynomialDegree(polynomial);
+
+    // a0x^3 + a1x^2 + a2x^1 + a3x^0
+    // [a3, a2, a1, a0]
+    for (int i = 1; i <= polynomialDegree; i++)
+    {
+        std::vector<int> combination;
+        bool isFirstTerm = true;
+
+        generateRootCombinations(polynomialDegree, i, combination, isFirstTerm);
+        std::cout << " = ";
+
+        std::pair<int, int> numerator = polynomial[polynomialDegree - i];
+        std::pair<int, int> denomerator = polynomial[polynomialDegree];
+
+        std::pair<int, int> value = divideFractions(numerator, denomerator);
+
+        simplifyFraction(value);
+
+        if (i % 2 != 0)
+        {
+            value = multiplyFractions(value, integerToFraction(-1));
+        }
+
+        printFraction(value);
+
+        std::cout << std::endl;
+    }
+}
