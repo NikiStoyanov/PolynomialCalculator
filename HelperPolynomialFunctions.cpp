@@ -20,7 +20,7 @@
 #include "HelperMathFunctions.h"
 #include "Constants.h"
 
-void printPolynomial(char name, char variable, const std::vector<std::pair<int, int>> polynomial, bool includePrefix = true)
+void printPolynomial(const char name, const char variable, const const std::vector<std::pair<int, int>> polynomial, const bool includePrefix = true)
 {
     if (includePrefix)
     {
@@ -69,8 +69,6 @@ void printPolynomial(char name, char variable, const std::vector<std::pair<int, 
     {
         std::cout << 0;
     }
-
-    std::cout << std::endl;
 }
 
 void readPolynomialDegree(char* degree) 
@@ -82,7 +80,7 @@ void readPolynomialDegree(char* degree)
     validatePolynomialDegree(degree);
 }
 
-std::vector<std::pair<int, int>> readPolymonial(char name, char variable)
+std::vector<std::pair<int, int>> readPolymonial(const char name, const char variable)
 {
     std::cout << "Enter Polynomial " << name << "(" << variable << ")" << std::endl;
 
@@ -103,11 +101,12 @@ std::vector<std::pair<int, int>> readPolymonial(char name, char variable)
     }
 
     printPolynomial(name, variable, polynomial);
+    std::cout << std::endl;
 
     return polynomial;
 }
 
-int getPolynomialDegree(std::vector<std::pair<int, int>> polynomial)
+int getPolynomialDegree(const std::vector<std::pair<int, int>> polynomial)
 {
     for (int i = polynomial.size() - 1; i >= 0; i--)
     {
@@ -120,7 +119,7 @@ int getPolynomialDegree(std::vector<std::pair<int, int>> polynomial)
     return 0;
 }
 
-std::vector<std::pair<int, int>> createPolynomial(int degree)
+std::vector<std::pair<int, int>> createPolynomial(const int degree)
 {
     std::vector<std::pair<int, int>> polynomial(degree + 1);
 
@@ -130,4 +129,36 @@ std::vector<std::pair<int, int>> createPolynomial(int degree)
     }
 
     return polynomial;
+}
+
+void swapPolynomials(std::vector<std::pair<int, int>>& polynomialP, std::vector<std::pair<int, int>>& polynomialB)
+{
+    std::vector<std::pair<int, int>> tempPolynomial = polynomialB;
+    polynomialB = polynomialP;
+    polynomialP = tempPolynomial;
+}
+
+void generateRootCombinations(const int n, const int k, std::vector<int>& combination, bool& isFirstTerm, const int start = 1)
+{
+    int combinationSize = combination.size();
+
+    if (combinationSize == k)
+    {
+        if (!isFirstTerm)
+        {
+            std::cout << " + ";
+        }
+        isFirstTerm = false;
+
+        for (int i = 0; i < combinationSize; i++) {
+            std::cout << "x" << combination[i];
+        }
+        return;
+    }
+
+    for (int i = start; i <= n; ++i) {
+        combination.push_back(i);
+        generateRootCombinations(n, k, combination, isFirstTerm, i + 1);
+        combination.pop_back();
+    }
 }

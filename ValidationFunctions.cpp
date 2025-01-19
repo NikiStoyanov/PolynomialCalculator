@@ -19,7 +19,7 @@
 #include "HelperPolynomialFunctions.h"
 #include "Constants.h"
 
-bool isDigit(char symbol)
+bool isDigit(const char symbol)
 {
 	return symbol >= '0' && symbol <= '9';
 }

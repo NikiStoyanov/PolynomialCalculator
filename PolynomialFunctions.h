@@ -25,15 +25,22 @@ std::vector<std::pair<int, int>> subtractPolynomials(std::vector<std::pair<int, 
 
 void subtractPolynomials();
 
-std::vector<std::pair<int, int>> multiplyPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ);
+std::vector<std::pair<int, int>> multiplyPolynomials(const std::vector<std::pair<int, int>> polynomialP, const std::vector<std::pair<int, int>> polynomialQ);
 
 void multiplyPolynomials();
 
-void dividePolynomials(std::vector<std::pair<int, int>>& polynomialP, std::vector<std::pair<int, int>> polynomialB, std::vector<std::pair<int, int>>& quotient);
+void dividePolynomials(
+	std::vector<std::pair<int, int>>& polynomialP, 
+	const std::vector<std::pair<int, int>> polynomialB, 
+	std::vector<std::pair<int, int>>& quotient, 
+	const bool isGcdComputation = false);
 
 void dividePolynomials();
 
 void multiplyPolynomialByGivenScalar();
+
+std::pair<int, int> calculatePolynomialForGivenNumber(const std::vector<std::pair<int, int>> polynomial, const std::pair<int, int> number);
+
 
 void calculatePolynomialForGivenNumber();
 
@@ -42,3 +49,7 @@ void findGcdOfTwoPolynomials();
 void generateRootCombinations(int n, int k, std::vector<int>& combination, bool& isFirstTerm, int start = 1);
 
 void displayVietasFormulasForGivenPolynomial();
+
+void representPolynomialInPowersOfXPlusA();
+
+void findRationalRoots();

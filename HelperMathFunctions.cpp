@@ -14,22 +14,23 @@
 */
 
 #include <iostream>
+#include <vector>
 
 #include "HelperMathFunctions.h"
 #include "ValidationFunctions.h"
 #include "Constants.h"
 
-int max(int a, int b)
+int max(const int a, const int b)
 {
     return a >= b ? a : b;
 }
 
-int min(int a, int b)
+int min(const int a, const int b)
 {
     return a <= b ? a : b;
 }
 
-int absolute(int number)
+int absolute(const int number)
 {
     return number < 0 ? -number : number;
 }
@@ -77,7 +78,7 @@ int gcd(int a, int b)
     return gcd(b % a, a);
 }
 
-int lcm(int a, int b)
+int lcm(const int a, const int b)
 {
     if (a == 0 || b == 0)
     {
@@ -95,6 +96,12 @@ void simplifyFraction(std::pair<int, int>& fraction)
     {
         fraction.first /= greatestCommonDivisor;
         fraction.second /= greatestCommonDivisor;
+    }
+
+    if (fraction.second < 0)
+    {
+        fraction.first = -fraction.first;
+        fraction.second = -fraction.second;
     }
 }
 
@@ -138,7 +145,7 @@ std::pair<int, int> subtractFractions(std::pair<int, int> firstFraction, std::pa
     return result;
 }
 
-std::pair<int, int> multiplyFractions(std::pair<int, int> firstFraction, std::pair<int, int> secondFraction)
+std::pair<int, int> multiplyFractions(const std::pair<int, int> firstFraction, const std::pair<int, int> secondFraction)
 {
     std::pair<int, int> result;
     
@@ -150,7 +157,7 @@ std::pair<int, int> multiplyFractions(std::pair<int, int> firstFraction, std::pa
     return result;
 }
 
-std::pair<int, int> divideFractions(std::pair<int, int> firstFraction, std::pair<int, int> secondFraction)
+std::pair<int, int> divideFractions(const std::pair<int, int> firstFraction, const std::pair<int, int> secondFraction)
 {
     std::pair<int, int> result;
     
@@ -214,16 +221,10 @@ std::pair<int, int> readFraction()
 
     simplifyFraction(result);
 
-    if (result.second < 0)
-    {
-        result.first = -result.first;
-        result.second = -result.second;
-    }
-
     return result;
 }
 
-void printFraction(std::pair<int, int> fraction)
+void printFraction(const std::pair<int, int> fraction)
 {
     if (fraction.second == 1)
     {
@@ -235,18 +236,105 @@ void printFraction(std::pair<int, int> fraction)
     }
 }
 
-std::pair<int, int> integerToFraction(int number)
+std::pair<int, int> integerToFraction(const int number)
 {
     return { number, 1 };
 }
 
-std::pair<int, int> fractionPow(std::pair<int, int> fraction, int pow)
+std::pair<int, int> fractionPow(const std::pair<int, int> fraction, const int pow)
 {
     std::pair<int, int> result = { 1, 1 };
 
     for (unsigned i = 0; i < pow; i++)
     {
         result = multiplyFractions(fraction, result);
+    }
+
+    return result;
+}
+
+std::vector<int> findDivisors(int n)
+{
+    std::vector<int> divisors;
+
+    n = absolute(n);
+
+    for (int i = 1; i <= n; i++)
+    {
+        if (n % i == 0) {
+            divisors.push_back(i);
+            divisors.push_back(-i);
+        }
+    }
+
+    return divisors;
+}
+
+bool containsElement(const std::vector<std::pair<int, int>> polynomial, const std::pair<int, int> element)
+{
+    int polynomialDegree = polynomial.size() - 1;
+
+    for (int i = 0; i <= polynomialDegree; i++)
+    {
+        if (polynomial[i] == element)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+std::vector<std::pair<int, int>> generateFractions(const int a, const int b) 
+{
+    std::vector<int> divisorsA = findDivisors(a);
+    int countOfDivisorsOfA = divisorsA.size();
+    std::vector<int> divisorsB = findDivisors(b);
+    int countOfDivisorsOfB = divisorsB.size();
+
+    std::vector<std::pair<int, int>> fractions;
+
+    for (int i = 0; i < countOfDivisorsOfA; i++)
+    {
+        for (int j = 0; j < countOfDivisorsOfB; j++)
+        {
+            std::pair<int, int> fraction = { divisorsA[i], divisorsB[j] };
+
+            simplifyFraction(fraction);
+
+            if (!containsElement(fractions, fraction))
+            {
+                fractions.push_back(fraction);
+            }
+        }
+    }
+    return fractions;
+}
+
+std::vector<std::pair<std::pair<int, int>, int>> countOccurrences(const std::vector<std::pair<int, int>>& roots)
+{
+    std::vector<std::pair<std::pair<int, int>, int>> result;
+
+    int rootsCount = roots.size();
+
+    for (int i = 0; i < rootsCount; i++)
+    {
+        bool found = false;
+
+        int resultCount = result.size();
+
+        for (int j = 0; j < resultCount; j++)
+        {
+            if (result[j].first == roots[i]) {
+                result[j].second++;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            result.push_back({ roots[i], 1});
+        }
     }
 
     return result;

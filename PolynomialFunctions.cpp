@@ -55,6 +55,7 @@ void addPolynomials()
     std::cout << "P(x)+Q(x) = ";
 
     printPolynomial('R', 'x', result, false);
+    std::cout << std::endl;
 }
 
 std::vector<std::pair<int, int>> subtractPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
@@ -98,9 +99,10 @@ void subtractPolynomials()
     std::cout << "P(x)-Q(x) = ";
 
     printPolynomial('R', 'x', result, false);
+    std::cout << std::endl;
 }
 
-std::vector<std::pair<int, int>> multiplyPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
+std::vector<std::pair<int, int>> multiplyPolynomials(const std::vector<std::pair<int, int>> polynomialP, const std::vector<std::pair<int, int>> polynomialQ)
 {
     int degreeOfP = getPolynomialDegree(polynomialP);
     int degreeOfQ = getPolynomialDegree(polynomialQ);
@@ -130,13 +132,14 @@ void multiplyPolynomials()
     std::cout << "P(x)*Q(x) = ";
     
     printPolynomial('R', 'x', result, false);
+    std::cout << std::endl;
 }
 
 void dividePolynomials(
     std::vector<std::pair<int, int>>& polynomialP,
-    std::vector<std::pair<int, int>> polynomialB,
+    const std::vector<std::pair<int, int>> polynomialB,
     std::vector<std::pair<int, int>>& quotient,
-    bool isGcdComputation = false)
+    const bool isGcdComputation = false)
 {
     int degreeOfP = getPolynomialDegree(polynomialP);
     int degreeOfB = getPolynomialDegree(polynomialB);
@@ -220,9 +223,11 @@ void dividePolynomials()
     std::cout << std::endl;
     std::cout << "Quotient ";
     printPolynomial('Q', 'x', quotient, true);
+    std::cout << std::endl;
 
     std::cout << "Remainder ";
     printPolynomial('R', 'x', polynomialP, true);
+    std::cout << std::endl;
 }
 
 void multiplyPolynomialByGivenScalar()
@@ -240,15 +245,11 @@ void multiplyPolynomialByGivenScalar()
     std::cout << "Result: ";
     
     printPolynomial('R', 'x', polynomial, false);
+    std::cout << std::endl;
 }
 
-void calculatePolynomialForGivenNumber() 
+std::pair<int, int> calculatePolynomialForGivenNumber(const std::vector<std::pair<int, int>> polynomial, const std::pair<int, int> number)
 {
-    std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
-
-    std::cout << "Enter rational number: ";
-    std::pair<int, int> number = readFraction();
-
     std::pair<int, int> sum = { 0, 1 };
 
     for (int i = polynomial.size() - 1; i >= 0; i--)
@@ -263,18 +264,23 @@ void calculatePolynomialForGivenNumber()
         }
     }
 
+    return sum;
+}
+
+void calculatePolynomialForGivenNumber() 
+{
+    std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
+
+    std::cout << "Enter rational number: ";
+    std::pair<int, int> number = readFraction();
+
+    std::pair<int, int> sum = calculatePolynomialForGivenNumber(polynomial, number);
+
     std::cout << "P(";
     printFraction(number);
     std::cout << ") = ";
     printFraction(sum);
     std::cout << std::endl;
-}
-
-void swapPolynomials(std::vector<std::pair<int, int>>& polynomialP, std::vector<std::pair<int, int>>& polynomialB)
-{
-    std::vector<std::pair<int, int>> tempPolynomial = polynomialB;
-    polynomialB = polynomialP;
-    polynomialP = tempPolynomial;
 }
 
 void findGcdOfTwoPolynomials()
@@ -289,11 +295,13 @@ void findGcdOfTwoPolynomials()
     if (degreeOfB == 0 && (polynomialB[degreeOfB] == integerToFraction(0)))
     {
         printPolynomial('P', 'x', polynomialP, false);
+        std::cout << std::endl;
         return;
     }
     if (degreeOfP == 0 && (polynomialP[degreeOfP] == integerToFraction(0)))
     {
         printPolynomial('B', 'x', polynomialB, false);
+        std::cout << std::endl;
         return;
     }
 
@@ -321,31 +329,7 @@ void findGcdOfTwoPolynomials()
     std::cout << std::endl;
     std::cout << "gcd(P(x), Q(x)) = ";
     printPolynomial('G', 'x', gcd, false);
-}
-
-void generateRootCombinations(int n, int k, std::vector<int>& combination, bool& isFirstTerm, int start = 1)
-{
-    int combinationSize = combination.size();
-
-    if (combinationSize == k)
-    {
-        if (!isFirstTerm)
-        {
-            std::cout << " + ";
-        }
-        isFirstTerm = false;
-
-        for (size_t i = 0; i < combinationSize; ++i) {
-            std::cout << "x" << combination[i];
-        }
-        return;
-    }
-
-    for (int i = start; i <= n; ++i) {
-        combination.push_back(i);
-        generateRootCombinations(n, k, combination, isFirstTerm, i + 1);
-        combination.pop_back();
-    }
+    std::cout << std::endl;
 }
 
 void displayVietasFormulasForGivenPolynomial()
@@ -355,11 +339,10 @@ void displayVietasFormulasForGivenPolynomial()
     std::cout << std::endl;
     std::cout << "Vieta's Formulas for polynomial: ";
     printPolynomial('P', 'x', polynomial, true);
+    std::cout << std::endl;
 
     int polynomialDegree = getPolynomialDegree(polynomial);
 
-    // a0x^3 + a1x^2 + a2x^1 + a3x^0
-    // [a3, a2, a1, a0]
     for (int i = 1; i <= polynomialDegree; i++)
     {
         std::vector<int> combination;
@@ -384,4 +367,144 @@ void displayVietasFormulasForGivenPolynomial()
 
         std::cout << std::endl;
     }
+}
+
+void representPolynomialInPowersOfXPlusA()
+{
+    std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
+
+    std::cout << "Enter rational number a: ";
+    std::pair<int, int> a = readFraction();
+    std::cout << std::endl;
+
+    std::cout << "P(x";
+    if (a.first > 0)
+    {
+        std::cout << "+";
+    }
+    printFraction(a);
+    std::cout << ") = ";
+}
+
+void findRationalRoots()
+{
+    std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
+
+    int polynomialDegree = getPolynomialDegree(polynomial);
+
+    if (polynomialDegree == 0)
+    {
+        std::cout << "No rational roots!";
+        return;
+    }
+
+    int denominatorsLcm = 1;
+
+    for (int i = 0; i <= polynomialDegree; i++)
+    {
+        denominatorsLcm = lcm(denominatorsLcm, polynomial[i].second);
+    }
+
+    for (int i = 0; i <= polynomialDegree; i++)
+    {
+        polynomial[i] = multiplyFractions(polynomial[i], integerToFraction(denominatorsLcm / polynomial[i].second));
+        polynomial[i].second = 1;
+    }
+
+    std::pair<int, int> leadingCoefficient = polynomial[polynomialDegree];
+
+    std::vector<std::pair<int, int>> roots;
+
+    while (polynomialDegree > 0)
+    {
+        std::vector<std::pair<int, int>> fractions = generateFractions(polynomial[0].first, polynomial[polynomialDegree].first);
+        int countOfFractions = fractions.size();
+
+        int rootsCount = roots.size();
+
+        for (int i = 0; i < fractions.size(); i++)
+        {
+            std::pair<int, int> value = calculatePolynomialForGivenNumber(polynomial, fractions[i]);
+
+            simplifyFraction(value);
+
+            if (value == integerToFraction(0))
+            {
+                roots.push_back(fractions[i]);
+
+                std::vector<std::pair<int, int>> quotient = createPolynomial(polynomialDegree);
+                std::vector<std::pair<int, int>> divider = createPolynomial(1);
+                divider[1].first = 1;
+                divider[0] = multiplyFractions(fractions[i], integerToFraction(-1));
+
+                dividePolynomials(polynomial, divider, quotient);
+                polynomial = quotient;
+
+                polynomialDegree = getPolynomialDegree(polynomial);
+            }
+        }
+
+        if (rootsCount == roots.size())
+        {
+            break;
+        }
+    }
+
+    std::cout << std::endl;
+    std::cout << "P(x) = ";
+    if (leadingCoefficient != integerToFraction(1))
+    {
+        printFraction(leadingCoefficient);
+    }
+    
+    std::vector<std::pair<std::pair<int, int>, int>> foldedRoots = countOccurrences(roots);
+    int foldedRootsCount = foldedRoots.size();
+
+    for (int i = 0; i < foldedRootsCount; i++)
+    {
+        std::cout << "(x";
+        if (foldedRoots[i].first.first > 0)
+        {
+            std::cout << "+";
+        }
+        printFraction(foldedRoots[i].first);
+        std::cout << ")";
+
+        if (foldedRoots[i].second > 1)
+        {
+            std::cout << "^" << foldedRoots[i].second;
+        }
+    }
+
+    // If there are complex and irrational roots
+    if (polynomialDegree > 0 )
+    {
+        std::cout << '(';
+        printPolynomial('P', 'x', polynomial, false);
+        std::cout << ')';
+    }
+
+    std::cout << "= 0";
+    std::cout << std::endl;
+
+    if (roots.size() > 0)
+    {
+        std::cout << "RATIONAL ROOTS:" << std::endl;
+    }
+    else
+    {
+        std::cout << "No rational roots!" << std::endl;
+    }
+    
+    for (int i = 0; i < foldedRootsCount; i++)
+    {
+        std::cout << "x = ";
+        printFraction(foldedRoots[i].first);
+        std::cout << " -> " << foldedRoots[i].second << "-fold root" << std::endl;
+    }
+}
+
+void findNthDerivativeOfPolynomial()
+{
+    
 }

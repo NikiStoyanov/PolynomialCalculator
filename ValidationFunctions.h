@@ -15,7 +15,7 @@
 
 #pragma once
 
-bool isDigit(char symbol);
+bool isDigit(const char symbol);
 
 void validateOptionSelection(char* option);
 

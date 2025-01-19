@@ -17,12 +17,16 @@
 
 #include <vector>
 
-void printPolynomial(char name, char variable, const std::vector<std::pair<int, int>> polynomial, bool includePrefix = true);
+void printPolynomial(const char name, const char variable, const std::vector<std::pair<int, int>> polynomial, const bool includePrefix = true);
 
 void readPolynomialDegree(char* degree);
 
-int getPolynomialDegree(std::vector<std::pair<int, int>> polynomial);
+std::vector<std::pair<int, int>> readPolymonial(const char name, const char variable);
 
-std::vector<std::pair<int, int>> readPolymonial(char name, char variable);
+int getPolynomialDegree(const std::vector<std::pair<int, int>> polynomial);
 
-std::vector<std::pair<int, int>> createPolynomial(int degree);
+std::vector<std::pair<int, int>> createPolynomial(const int degree);
+
+void swapPolynomials(std::vector<std::pair<int, int>>& polynomialP, std::vector<std::pair<int, int>>& polynomialB);
+
+void generateRootCombinations(const int n, const int k, std::vector<int>& combination, bool& isFirstTerm, const int start = 1);

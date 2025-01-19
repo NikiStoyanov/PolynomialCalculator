@@ -32,7 +32,8 @@ void displayMenu()
     std::cout << "h) Display Vieta's formulas for a given polynomial" << std::endl;
     std::cout << "i) Represent a polynomial in powers of (x+a)" << std::endl;
     std::cout << "j) Factor polynomial and find its rational roots" << std::endl;
-    std::cout << "k) Quit program" << std::endl;
+    std::cout << "k) Find N-th derivative of a given polynomial" << std::endl;
+    std::cout << "l) Quit program" << std::endl;
 }
 
 void readOption(char* option)
@@ -64,13 +65,16 @@ void listenForOptionSelection()
             case 'f': calculatePolynomialForGivenNumber(); break;
             case 'g': findGcdOfTwoPolynomials(); break;
             case 'h': displayVietasFormulasForGivenPolynomial(); break;
-            case 'i': break;
-            case 'j': break;
-            case 'k':
+            case 'i': representPolynomialInPowersOfXPlusA(); break;
+            case 'j': findRationalRoots(); break;
+            case 'k': findNthDerivativeOfPolynomial(); break;
+            case 'l':
                 std::cout << "Quitting..." << std::endl;
                 return;
                 break;
         }
+
+        std::cout << std::endl;
     } 
     while (true);
 }
