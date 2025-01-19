@@ -62,7 +62,7 @@ void listenForOptionSelection()
             case 'd': dividePolynomials(); break;
             case 'e': multiplyPolynomialByGivenScalar(); break;
             case 'f': calculatePolynomialForGivenNumber(); break;
-            case 'g': break;
+            case 'g': findGcdOfTwoPolynomials(); break;
             case 'h': break;
             case 'i': break;
             case 'j': break;

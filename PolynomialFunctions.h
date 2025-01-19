@@ -25,12 +25,16 @@ std::vector<std::pair<int, int>> subtractPolynomials(std::vector<std::pair<int, 
 
 void subtractPolynomials();
 
+std::vector<std::pair<int, int>> multiplyPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ);
+
 void multiplyPolynomials();
 
-std::vector<std::pair<int, int>> multiplyPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ);
+void dividePolynomials(std::vector<std::pair<int, int>>& polynomialP, std::vector<std::pair<int, int>> polynomialB, std::vector<std::pair<int, int>>& quotient);
 
 void dividePolynomials();
 
 void multiplyPolynomialByGivenScalar();
 
 void calculatePolynomialForGivenNumber();
+
+void findGcdOfTwoPolynomials();

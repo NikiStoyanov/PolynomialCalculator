@@ -21,8 +21,8 @@
 
 std::vector<std::pair<int, int>> addPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
 {
-    int degreeOfP = polynomialP.size() - 1;
-    int degreeOfQ = polynomialQ.size() - 1;
+    int degreeOfP = getPolynomialDegree(polynomialP);
+    int degreeOfQ = getPolynomialDegree(polynomialQ);
 
     if (degreeOfP >= degreeOfQ)
     {
@@ -59,8 +59,8 @@ void addPolynomials()
 
 std::vector<std::pair<int, int>> subtractPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
 {
-    int degreeOfP = polynomialP.size() - 1;
-    int degreeOfQ = polynomialQ.size() - 1;
+    int degreeOfP = getPolynomialDegree(polynomialP);
+    int degreeOfQ = getPolynomialDegree(polynomialQ);
 
     if (degreeOfP >= degreeOfQ)
     {
@@ -102,8 +102,8 @@ void subtractPolynomials()
 
 std::vector<std::pair<int, int>> multiplyPolynomials(std::vector<std::pair<int, int>> polynomialP, std::vector<std::pair<int, int>> polynomialQ)
 {
-    int degreeOfP = polynomialP.size() - 1;
-    int degreeOfQ = polynomialQ.size() - 1;
+    int degreeOfP = getPolynomialDegree(polynomialP);
+    int degreeOfQ = getPolynomialDegree(polynomialQ);
 
     int resultDegree = degreeOfP + degreeOfQ;
 
@@ -132,29 +132,45 @@ void multiplyPolynomials()
     printPolynomial('R', 'x', result, false);
 }
 
-void dividePolynomials()
+void dividePolynomials(
+    std::vector<std::pair<int, int>>& polynomialP,
+    std::vector<std::pair<int, int>> polynomialB,
+    std::vector<std::pair<int, int>>& quotient,
+    bool isGcdComputation = false)
 {
-    std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
-    std::cout << std::endl;
-    std::vector<std::pair<int, int>> polynomialB = readPolymonial('B', 'x');
+    int degreeOfP = getPolynomialDegree(polynomialP);
+    int degreeOfB = getPolynomialDegree(polynomialB);
 
-    int degreeOfP = polynomialP.size() - 1;
-    int degreeOfB = polynomialB.size() - 1;
-
-    if (degreeOfB == 0 && (polynomialB[degreeOfB] == integerToFraction(0)))
+    if (degreeOfB == 0 && (polynomialB[0] == integerToFraction(0)))
     {
+        if (isGcdComputation)
+        {
+            return;
+        }
+
         std::cout << DIVIDE_BY_ZERO_ERROR_MESSAGE;
         return;
     }
+
     if (degreeOfB > degreeOfP)
     {
         std::cout << DIVIDE_BY_HIGHER_DEGREE_ERROR_MESSAGE;
         return;
     }
 
-    int quotientDegree = degreeOfP - degreeOfB;
+    if (degreeOfB == 0)
+    {
+        for (int i = 0; i <= degreeOfP; i++)
+        {
+            polynomialP[i] = divideFractions(polynomialP[i], polynomialB[0]);
+        }
 
-    std::vector<std::pair<int, int>> quotient = createPolynomial(quotientDegree);
+        quotient = polynomialP;
+        polynomialP = createPolynomial(0);
+        return;
+    }
+
+    int quotientDegree = degreeOfP - degreeOfB;
 
     while (degreeOfP >= degreeOfB)
     {
@@ -173,6 +189,33 @@ void dividePolynomials()
         polynomialP = remainder;
         degreeOfP = getPolynomialDegree(polynomialP);
     }
+}
+
+void dividePolynomials()
+{
+    std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
+    std::cout << std::endl;
+    std::vector<std::pair<int, int>> polynomialB = readPolymonial('B', 'x');
+
+    int degreeOfP = getPolynomialDegree(polynomialP);
+    int degreeOfB = getPolynomialDegree(polynomialB);
+
+    if (degreeOfB == 0 && (polynomialB[degreeOfB] == integerToFraction(0)))
+    {
+        std::cout << DIVIDE_BY_ZERO_ERROR_MESSAGE;
+        return;
+    }
+    if (degreeOfB > degreeOfP)
+    {
+        std::cout << DIVIDE_BY_HIGHER_DEGREE_ERROR_MESSAGE;
+        return;
+    }
+
+    int quotientDegree = degreeOfP - degreeOfB;
+
+    std::vector<std::pair<int, int>> quotient = createPolynomial(quotientDegree);
+
+    dividePolynomials(polynomialP, polynomialB, quotient);
 
     std::cout << std::endl;
     std::cout << "Quotient ";
@@ -225,4 +268,57 @@ void calculatePolynomialForGivenNumber()
     std::cout << ") = ";
     printFraction(sum);
     std::cout << std::endl;
+}
+
+void swapPolynomials(std::vector<std::pair<int, int>>& polynomialP, std::vector<std::pair<int, int>>& polynomialB)
+{
+    std::vector<std::pair<int, int>> tempPolynomial = polynomialB;
+    polynomialB = polynomialP;
+    polynomialP = tempPolynomial;
+}
+
+void findGcdOfTwoPolynomials()
+{
+    std::vector<std::pair<int, int>> polynomialP = readPolymonial('P', 'x');
+    std::cout << std::endl;
+    std::vector<std::pair<int, int>> polynomialB = readPolymonial('B', 'x');
+
+    int degreeOfP = getPolynomialDegree(polynomialP);
+    int degreeOfB = getPolynomialDegree(polynomialB);
+
+    if (degreeOfB == 0 && (polynomialB[degreeOfB] == integerToFraction(0)))
+    {
+        printPolynomial('P', 'x', polynomialP, false);
+        return;
+    }
+    if (degreeOfP == 0 && (polynomialP[degreeOfP] == integerToFraction(0)))
+    {
+        printPolynomial('B', 'x', polynomialB, false);
+        return;
+    }
+
+    if (degreeOfB > degreeOfP)
+    {
+        swapPolynomials(polynomialP, polynomialB);
+    }
+
+    int quotientDegree = degreeOfP - degreeOfB;
+
+    std::vector<std::pair<int, int>> quotient = createPolynomial(quotientDegree);
+    std::vector<std::pair<int, int>> gcd = polynomialP;
+
+    while (!(degreeOfP == 0 && (polynomialP[degreeOfP] == integerToFraction(0))))
+    {
+        dividePolynomials(polynomialP, polynomialB, quotient, true);
+
+        gcd = polynomialP;
+
+        swapPolynomials(polynomialP, polynomialB);
+
+        degreeOfP = getPolynomialDegree(polynomialP);
+    }
+
+    std::cout << std::endl;
+    std::cout << "gcd(P(x), Q(x)) = ";
+    printPolynomial('G', 'x', gcd, false);
 }
