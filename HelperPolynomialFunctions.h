@@ -30,3 +30,5 @@ std::vector<std::pair<int, int>> createPolynomial(const int degree);
 void swapPolynomials(std::vector<std::pair<int, int>>& polynomialP, std::vector<std::pair<int, int>>& polynomialB);
 
 void generateRootCombinations(const int n, const int k, std::vector<int>& combination, bool& isFirstTerm, const int start = 1);
+
+void calculateNewtonBinomial(const std::vector<std::pair<int, int>> binom, int degree);

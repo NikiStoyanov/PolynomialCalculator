@@ -373,18 +373,43 @@ void displayVietasFormulasForGivenPolynomial()
 void representPolynomialInPowersOfXPlusA()
 {
     std::vector<std::pair<int, int>> polynomial = readPolymonial('P', 'x');
+    int polynomialDegree = getPolynomialDegree(polynomial);
 
     std::cout << "Enter rational number a: ";
     std::pair<int, int> a = readFraction();
+
+    std::vector<std::pair<int, int>> binom = createPolynomial(1);
+    binom[1] = integerToFraction(1);
+
+    binom[0] = a;
+
+    // Multiply by -1 in order to change the polynomial variable
+    a = multiplyFractions(a, integerToFraction(-1));
+
+    std::vector<std::pair<int, int>> result = createPolynomial(polynomialDegree);
+
+    // Factorizing Newton binomial and multiplying it by the original coefficient
+    for (int i = polynomialDegree; i >= 0; i--)
+    {
+        std::vector<std::pair<int, int>> current = createPolynomial(i);
+
+        for (int j = 0; j <= i; j++)
+        {
+            int binomialCoefficient = calculateBinomialCoefficient(i, j);
+
+            std::pair<int, int> coefficient = multiplyFractions(fractionPow(a, j), integerToFraction(binomialCoefficient));
+            coefficient = multiplyFractions(coefficient, polynomial[i]);
+
+            result[i - j] = addFractions(result[i - j], coefficient);
+        }
+    }
+
     std::cout << std::endl;
 
-    std::cout << "P(x";
-    if (a.first > 0)
-    {
-        std::cout << "+";
-    }
-    printFraction(a);
-    std::cout << ") = ";
+    std::cout << "P(t) = ";
+    printPolynomial('R', 't', result, false);
+    std::cout << ", t = ";
+    printPolynomial('B', 'x', binom, false);
 }
 
 void findRationalRoots()

@@ -54,3 +54,5 @@ bool containsElement(const std::vector<std::pair<int, int>> polynomial, const st
 std::vector<std::pair<int, int>> generateFractions(const int a, const int b);
 
 std::vector<std::pair<std::pair<int, int>, int>> countOccurrences(const std::vector<std::pair<int, int>>& roots);
+
+int calculateBinomialCoefficient(int n, int k);

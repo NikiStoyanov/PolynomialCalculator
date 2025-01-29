@@ -34,7 +34,7 @@ void validateOptionSelection(char* option)
 		readOption(option);
 	}
 
-	if (option[0] < 'a' || option[0] > 'k')
+	if (option[0] < 'a' || option[0] > 'l')
 	{
 		std::cout << INVALID_OPTION_ERROR_MESSAGE << std::endl;
 

@@ -339,3 +339,26 @@ std::vector<std::pair<std::pair<int, int>, int>> countOccurrences(const std::vec
 
     return result;
 }
+
+int calculateBinomialCoefficient(int n, int k)
+{
+    if (k == 0 || k == n)
+    {
+        return 1;
+    }
+
+    if (k > n)
+    {
+        return 0;
+    }
+
+    int result = 1;
+
+    for (int i = 1; i <= k; i++)
+    {
+        result *= n - i + 1;
+        result /= i;
+    }
+    
+    return result;
+}

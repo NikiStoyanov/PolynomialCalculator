@@ -162,3 +162,8 @@ void generateRootCombinations(const int n, const int k, std::vector<int>& combin
         combination.pop_back();
     }
 }
+
+void calculateNewtonBinomial(const std::vector<std::pair<int, int>> binom, int degree)
+{
+
+}
