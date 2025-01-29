@@ -1,4 +1,4 @@
-# Polynomial Calculator Documentation
+# Polynomial Calculator
 
 ## Introduction
 
